@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>货架收纳</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section id="lockScreen" class="lock-screen">
+      <form id="loginForm" class="lock-panel">
+        <p class="eyebrow">Shelf Storage</p>
+        <h1>货架收纳</h1>
+        <label>
+          访问密码
+          <input id="passwordInput" type="password" autocomplete="current-password" placeholder="请输入密码" />
+        </label>
+        <button class="btn primary" type="submit">进入</button>
+        <p id="loginError" class="form-error" hidden>密码不正确</p>
+      </form>
+    </section>
+
+    <main id="app" class="app" hidden>
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Shelf Storage</p>
+          <h1>货架收纳</h1>
+        </div>
+        <button id="addBoxTop" class="btn primary" type="button">新增收纳箱</button>
+      </header>
+
+      <nav class="tabs" aria-label="页面切换">
+        <button class="tab active" type="button" data-view="searchView">搜索</button>
+        <button class="tab" type="button" data-view="boxView">物品罗列</button>
+      </nav>
+
+      <section id="searchView" class="view active">
+        <div class="search-panel">
+          <label>
+            搜索物品、箱子或位置
+            <input id="searchInput" type="search" placeholder="例如：虞书欣、货架1层、CD" />
+          </label>
+        </div>
+        <div id="searchResults" class="item-list"></div>
+      </section>
+
+      <section id="boxView" class="view">
+        <div id="boxList" class="box-grid"></div>
+      </section>
+    </main>
+
+    <dialog id="boxDialog" class="modal">
+      <form id="boxForm" method="dialog" class="modal-card">
+        <div class="modal-head">
+          <h2 id="boxDialogTitle">新增收纳箱</h2>
+          <div id="boxDangerActions" class="danger-actions" hidden>
+            <button id="clearBoxItems" class="btn ghost danger" type="button">清空内容</button>
+            <button id="deleteBox" class="btn ghost danger" type="button">删除箱子</button>
+          </div>
+        </div>
+        <input id="boxId" type="hidden" />
+        <label>
+          箱子名称
+          <input id="boxName" required placeholder="例如：A箱" />
+        </label>
+        <label>
+          位置
+          <input id="boxLocation" placeholder="例如：货架1层" />
+        </label>
+        <label>
+          箱子照片，可不填
+          <input id="boxPhoto" type="file" accept="image/*" />
+        </label>
+        <img id="boxPhotoPreview" class="photo-preview" alt="" hidden />
+        <div class="modal-actions">
+          <button class="btn muted" type="button" data-close>取消</button>
+          <button class="btn primary" type="submit">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="boxDetailDialog" class="modal wide">
+      <section class="modal-card">
+        <div class="modal-head">
+          <div>
+            <h2 id="detailTitle">收纳箱</h2>
+            <p id="detailMeta" class="muted-text"></p>
+          </div>
+          <button class="btn muted" type="button" data-close>关闭</button>
+        </div>
+        <div class="detail-toolbar">
+          <button id="addItemInBox" class="btn accent" type="button">新增</button>
+          <button id="editBoxInDetail" class="btn strong" type="button">编辑收纳箱</button>
+        </div>
+        <div id="detailItems" class="item-list"></div>
+      </section>
+    </dialog>
+
+    <dialog id="itemDialog" class="modal wide">
+      <form id="itemForm" method="dialog" class="modal-card">
+        <div class="modal-head">
+          <h2 id="itemDialogTitle">新增物品</h2>
+          <button id="deleteItem" class="btn ghost danger" type="button" hidden>删除</button>
+        </div>
+        <input id="itemId" type="hidden" />
+        <div class="form-grid">
+          <label><span>物品名称</span><input id="itemName" required placeholder="例如：专辑、徽章、纸巾" /></label>
+          <label><span>所在箱子</span><select id="itemBox" required></select></label>
+          <label><span>数量</span><input id="itemQty" type="number" min="1" value="1" /></label>
+          <label><span>物品照片，可不填</span><input id="itemPhoto" type="file" accept="image/*" /></label>
+          <label><span>生产日期</span><input id="mfgDate" type="date" /></label>
+          <label><span>保质期（月）</span><input id="shelfLife" type="number" min="0" placeholder="例如：24" /></label>
+          <label><span>到期时间</span><input id="expiryDate" type="date" /></label>
+          <label><span>开封时间</span><input id="openedDate" type="date" /></label>
+          <label><span>开封后保质期（天）</span><input id="afterOpenDays" type="number" min="0" placeholder="例如：90" /></label>
+        </div>
+        <label>
+          备注
+          <textarea id="itemNote" rows="3" placeholder="可记录补货、丢掉、使用提醒等"></textarea>
+        </label>
+        <img id="itemPhotoPreview" class="photo-preview item-preview" alt="" hidden />
+        <div class="modal-actions">
+          <button class="btn muted" type="button" data-close>取消</button>
+          <button class="btn primary" type="submit">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
